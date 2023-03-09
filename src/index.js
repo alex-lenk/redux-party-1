@@ -1,17 +1,51 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React, {useEffect, useState} from 'react'
+import ReactDOM from 'react-dom'
+import * as actions from './store/actions'
+import {initiateStore} from './store/store'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = initiateStore()
 
-const App = () => {
-    function fn() {
-        return 'Title'
+const App = (params) => {
+    const [state, setState] = useState(store.getState())
+
+    useEffect(() => {
+        store.subscribe(() => {
+            setState(store.getState())
+        })
+    }, [])
+
+    const completeTask = (taskId) => {
+        store.dispatch(actions.taskCompleted(taskId))
     }
-    return <h1>{fn()}</h1>
+    const changeTitle = (taskId) => {
+        store.dispatch(actions.titleChanged(taskId))
+    }
+
+    return (
+        <>
+            <h1> App</h1>
+            <ul>
+                {state.map((el) => (
+                    <li key={el.id}>
+                        <p>{el.title}</p>
+                        <p> {`Completed: ${el.completed}`}</p>
+                        <button onClick={() => completeTask(el.id)}>
+                            Complete
+                        </button>
+                        <button onClick={() => changeTitle(el.id)}>
+                            Change title
+                        </button>
+                        <hr/>
+                    </li>
+                ))}
+            </ul>
+        </>
+    )
 }
 
-root.render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>
-);
+ReactDOM.render(
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById('root')
+)

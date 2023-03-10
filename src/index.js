@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import * as actions from './store/actions'
 import {initiateStore} from './store/store'
 
 const store = initiateStore()
 
-const App = (params) => {
+const App = () => {
     const [state, setState] = useState(store.getState())
 
     useEffect(() => {
@@ -19,6 +19,9 @@ const App = (params) => {
     }
     const changeTitle = (taskId) => {
         store.dispatch(actions.titleChanged(taskId))
+    }
+    const deleteTask = (taskId) => {
+        store.dispatch(actions.taskDeleted(taskId))
     }
 
     return (
@@ -35,6 +38,9 @@ const App = (params) => {
                         <button onClick={() => changeTitle(el.id)}>
                             Change title
                         </button>
+                        <button onClick={() => deleteTask(el.id)}>
+                            Delete this task
+                        </button>
                         <hr/>
                     </li>
                 ))}
@@ -43,9 +49,8 @@ const App = (params) => {
     )
 }
 
-ReactDOM.render(
-    <React.StrictMode>
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <>
         <App/>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </>
 )

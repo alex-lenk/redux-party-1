@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom/client'
-import * as actions from './store/actions'
+import * as actions from './store/task/actions'
 import {initiateStore} from './store/store'
 
 const store = initiateStore()

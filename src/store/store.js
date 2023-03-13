@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import { taskReducer } from "./task/taskReducer";
+import taskReducer from "./task";
 
 const initialState = [
     { id: 1, title: "Task 1", completed: false },

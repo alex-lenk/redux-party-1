@@ -1,6 +1,6 @@
 {
-  "name": "redux-party-1",
-  "version": "0.1.8",
+  "name": "redux-party",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",

@@ -7,6 +7,7 @@ import {
     completeTask,
     loadTasks,
     getTasks,
+    createTask,
     getTasksLoadingStatus,
 } from './store/task'
 import configureStore from './store/store'
@@ -40,6 +41,9 @@ const App = () => {
     return (
         <>
             <h1> App</h1>
+
+            <button onClick={() => dispatch(createTask())}>Add new task</button>
+
             <ul>
                 {state.map((el) => (
                     <li key={el.id}>
